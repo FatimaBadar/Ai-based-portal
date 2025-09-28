@@ -14,21 +14,23 @@ function App() {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("")
-  const [requirement, setRequirement] = useState("");
-  const [uiElements, setUiElements] = useState("");
+  const [uiElements, setUiElements] = useState(false);
   const [activeStep, setActiveStep] = useState(1);
+
+  const [requirement, setRequirement] = useState("");
+
 
   useEffect( () => {
     const storedRequirement = JSON.parse(localStorage.getItem("requirement"));
     setRequirement(storedRequirement)
 
-      const storedElements = JSON.parse(localStorage.getItem("UIElements"));
-      setUiElements(storedElements)
+      // const storedElements = JSON.parse(localStorage.getItem("UIElements"));
+      // setUiElements(storedElements)
 
     if(storedRequirement){
       setActiveStep(2)
     }
-    if(storedElements){
+    if(uiElements){
       setActiveStep(3)
     }
   },[] )
@@ -61,9 +63,10 @@ function App() {
   };
 
   const handleGenerateUI = (ui) => {
+    setUiElements(ui);
     // setLoading(true);
-    setUiElements(ui.UIElements);
-    localStorage.setItem("UIElements", JSON.stringify(ui.UIElements));
+    // setUiElements(ui.UIElements);
+    // localStorage.setItem("UIElements", JSON.stringify(ui.UIElements));
     setActiveStep(3);
     // setLoading(false);
   };

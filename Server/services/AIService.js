@@ -19,13 +19,14 @@ async function cleanAndParseJSON(responseText){
         const parsed = JSON.parse(clean);
 
         //remove duplicates in roles/features
-        const { appName, entities, roles, features } = parsed;
+        const { appName, entities, roles, features, form } = parsed;
 
         return {
             appName: appName || "Untitled App",
             entities: Array.isArray(entities) ? entities: [],
             roles: Array.isArray(roles) ? [...new Set(roles)] : [],
             features: Array.isArray(features) ? [...new Set(features)] : [],
+            form: Array.isArray(form) ? form: []
         }
     }
     catch (error) {

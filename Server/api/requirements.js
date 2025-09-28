@@ -25,6 +25,7 @@ router.post("/analyzeRequirement", async (req, res) => {
         entities: analysisResult.entities,
         roles: analysisResult.roles,
         features: analysisResult.features,
+        form: analysisResult.form
       });
 
       await req.save();
@@ -35,6 +36,7 @@ router.post("/analyzeRequirement", async (req, res) => {
         entities: req.entities,
         roles: req.roles,
         features: req.features,
+        form: req.form
       };
       return res.status(200).json({
         sucess: true,

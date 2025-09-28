@@ -3,6 +3,8 @@ import { createUIElements } from "../services/api";
 import { Card } from "primereact/card";
 
 const RequirementDisplay = ({ onUIElements }) => {
+
+// const RequirementDisplay = ()=> {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [requirement, setRequirement] = useState("");
@@ -27,12 +29,14 @@ const RequirementDisplay = ({ onUIElements }) => {
     setLoading(true);
 
     try {
-      const response = await createUIElements(requirement.id);
-      console.log("UI Elements created successfully:", response);
+      // const response = await createUIElements(requirement.id);
+
+      // console.log("UI Elements created successfully:", response);
       setLoading(false);
 
       //send this data to next component - generateUi so first back to app.js
-      sendbackUIElements(response);
+      sendbackUIElements(true);
+      // onUIELements(true)
     } catch (error) {
       console.error("Error creating UI elements:", error);
       setError("Failed to generate UI elements. Please try again.");

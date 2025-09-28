@@ -8,83 +8,96 @@ import { InputText } from "primereact/inputtext";
 const GenerateUI = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [uiElements, setUiElements] = useState("");
+  const [uiElements, setUiElements] = useState(
+    // ]);
+    [
+      {
+        _id: "",
+        name: "",
+        fields: [],
+        role: "",
+        action: [],
+      },
+    ]
+  );
+  const [requirement, setRequirement] = useState("");
   // const [roleEntities, setRoleEntities] = useState("");
 
   useEffect(() => {
-    const storedElements = JSON.parse(localStorage.getItem("UIElements"));
-
-    setUiElements(storedElements);
-    if (uiElements) {
-      console.log("Received UI Elements:", uiElements);
+    const storedRequirement = JSON.parse(localStorage.getItem("requirement"));
+    if (storedRequirement) {
+      setRequirement(storedRequirement);
+      setUiElements(storedRequirement.form || []);
+      console.log("Received req:", storedRequirement);
+      console.log("Received UI Elements1:", storedRequirement.form || []);
     }
+    // if (uiElements) {
+    //   console.log("Received UI Elements:", uiElements);
+    // }
   }, []);
 
   return (
     <Card className="ui-card">
-      <h2 className="requirement-heading">{uiElements.appName} </h2>
+      <h2 className="requirement-heading">{requirement.appName} </h2>
 
       <TabView>
-        {/* {uiElements.navigation?.role.map((item, index) => {
-          // Filter entities for this role
-          const roleEntities =
-            uiElements.navigation.entities.filter((entity) =>
-              entity.roles.includes(item.label)
-            ) || []; */}
+        {requirement.roles?.map((role, roleIndex) => (
+          <TabPanel key={roleIndex} header={role}>
+            {uiElements
+              .filter((ui) => ui.role == role)
+              .map((item, index) => (
+                <Card className="description-card" key={index}>
+                  <h3>{item.name}</h3>
+                  <form>
+                    {item.fields?.map((field, fieldIndex) => (
+                      <div key={fieldIndex}>
+                        <label htmlFor={field.name}>
+                          {field.name.charAt(0).toUpperCase() +
+                            field.name
+                              .replace(/([a-z])([A-Z])/g, "$1 $2")
+                              .slice(1)}
+                        </label>
+                        <InputText
+                          id={field._id}
+                          type={field.type}
+                          name={field.name}
+                          required={field.required}
+                          // placeholder={field.placeholder}
+                          className="w-12rem"
+                        />
+                      </div>
+                    ))}
 
-            {/* return( */}
-            {uiElements.navigation?.role.map((item, index) => (
-
-          <TabPanel key={index} header={item.label}>
-            {item.content.forms?.map((form, formIndex) => (
-              // {item.content.forms?.map((form, formIndex) => (
-              <Card className="description-card" key={formIndex}>
-                <h3>{form.title}</h3>
-                <form>
-                  {form.fields?.map((field, fieldIndex) => (
-                    <div key={fieldIndex}>
-                      <label htmlFor={field.label}>{field.label}</label>
-                      <InputText
-                        id={field.id}
-                        type={field.type}
-                        name={field.label}
-                        required={field.required}
-                        placeholder={field.placeholder}
-                        className="w-12rem"
-                      />
-                    </div>
-                  ))}
-
-                  <div className="actions">
-                    {form.actions?.map((action, actionIndex) => (
+                    <div className="actions">
                       <Button
-                        key={actionIndex}
-                        type={action.type}
-                        label={action.label}
+                        // key={actionIndex}
+                        type="submit"
+                        label={item.action.toUpperCase()}
+                        name={item.action.replace(" ","")}
                         className="m-2"
                       />
-                    ))}
-                  </div>
+                    </div>
 
-                  {error != "" && <Message severity="error" text={error} />}
-                </form>
-              </Card>
-            ))}
+                    {error != "" && <Message severity="error" text={error} />}
+                  </form>
+                </Card>
+              ))}
 
-             {/* Optional: Render role-specific features */}
-              <div className="role-features">
-                {item.content?.features?.map((feature, featureIndex) => (
-                  <Button
-                    key={featureIndex}
-                    label={feature.label}
-                    className="m-2"
-                    variant={feature.variant || "outline"}
-                  />
-                ))}
-              </div>
+            {/* <div className="role-features">
+              {item.content?.features?.map((feature, featureIndex) => (
+                <Button
+                  key={featureIndex}
+                  label={feature.label}
+                  className="m-2"
+                  variant={feature.variant || "outline"}
+                />
+              ))}
+            </div> */}
+
+
+            {/* Table */}
           </TabPanel>
-      //  {/* ); 
-      ))}
+        ))}
       </TabView>
     </Card>
   );

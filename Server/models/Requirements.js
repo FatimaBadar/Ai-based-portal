@@ -12,12 +12,20 @@ const EntitySchema = new mongoose.Schema({
     roles: [String] // roles that can access this entity
 });
 
+const FormSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    fields: [FieldSchema],
+    role: { type: String, required: true },
+    action: { type: String, required: true },
+})
+
 const RequirementSchema = new mongoose.Schema({
     appName: { type: String, required: true },
     description: { type: String, required: true },
     entities: [EntitySchema],
     roles: [String],
     features: [String],
+    form: [FormSchema],
     createdAt: { type: Date, default: Date.now }
 });
 
