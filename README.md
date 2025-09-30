@@ -66,7 +66,7 @@ This portal demonstrates the integration of AI with web development to automate 
 - **Backend:** Node.js, Express  
 - **Database:** MongoDB  
 - **Deployment:** Vercel (Frontend), Render (Backend)  
-- **AI API:** OpenAI / GPT-based API for requirement extraction  
+- **AI API:** Deepseek-ai API for requirement extraction  
 
 ---
 
@@ -88,15 +88,19 @@ cd Server
 npm install
 
 ### Create a .env file with the following variables:
-PORT=5000
-MONGO_URI=<your_mongodb_connection_string>
-OPENAI_API_KEY=<your_openai_api_key>
+PORT=3000
+ATLAS_URL=<your_mongodb_connection_string>
+HUGGING_FACE_API_KEY=<your_openai_api_key>
 
 ### Start backend server:
 ```bash
 npm start
 
 ##Frontend Setup
+
+### Create a .env file with the following variables:
+VITE_SERVER_API_BASE_URL=http://localhost:3000/api
+
 ```bash
 cd ../Frontend
 npm install
