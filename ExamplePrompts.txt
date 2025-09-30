@@ -1,0 +1,39 @@
+1. E-commerce & Inventory
+
+I want an app to manage a small retail store. Staff add products, track inventory, customers place orders, and managers view sales reports.
+
+2. Fitness & Health
+
+I want an app to track fitness routines. Users log exercises, track progress, and coaches can assign workout plans and review performance.
+
+3. Event Management
+
+I want an app to organize events. Organizers create events, participants register, and admins generate attendance and feedback reports.
+
+4. Project Management
+
+I want an app to manage software projects. Team members log tasks, update progress, project managers assign work, and clients view dashboards.
+
+5. Library & Book Tracking
+
+I want an app to manage a library. Librarians add books, members borrow or return books, and admins track overdue fines and popular titles.
+
+6. Restaurant Management
+
+I want an app to run a restaurant. Chefs manage menus, waiters take orders, customers place online orders, and managers analyze sales.
+
+7. Travel & Booking
+
+I want an app to manage travel bookings. Users search destinations, book flights and hotels, and admins handle cancellations and reports.
+
+8. Online Learning
+
+I want an app for online courses. Teachers upload lessons and quizzes, students complete courses, and admins monitor progress and completion rates.
+
+9. Personal Finance
+
+I want an app to manage personal finances. Users track income and expenses, set budgets, and get monthly financial reports.
+
+10. Healthcare & Appointments
+
+I want an app to manage doctor appointments. Patients book slots, doctors manage schedules, and admins track consultations and billing.
