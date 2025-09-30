@@ -112,6 +112,7 @@ function App() {
               value="2"
               size="large"
               severity={activeStep === 2 ? "primary" : "info"}
+              onClick={()=>{activeStep===3 ? setActiveStep(2) : ""}}
             ></Badge>
             <div className="step-label">Review Requirements</div>
           </div>

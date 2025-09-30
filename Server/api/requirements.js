@@ -3,8 +3,6 @@ import { ExtractRequirements } from "../services/AIService.js";
 import { Requirement } from "../models/Requirements.js";
 
 // dotenv.config();
-console.log("In requirements.js");
-
 const router = Router();
 
 router.post("/analyzeRequirement", async (req, res) => {
@@ -18,6 +16,7 @@ router.post("/analyzeRequirement", async (req, res) => {
     //Call service
     const analysisResult = await ExtractRequirements(description);
     if (analysisResult) {
+      
       //Save to db
       const req = new Requirement({
         appName: analysisResult.appName,

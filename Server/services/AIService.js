@@ -33,7 +33,8 @@ async function cleanAndParseJSON(responseText) {
     };
   } catch (error) {
     console.error("Failed to parse JSON:", error);
-        // Try repairing by closing braces/brackets
+    
+    // repairing by closing braces/brackets
     let repaired = responseText;
     const openCurly = (repaired.match(/{/g) || []).length;
     const closeCurly = (repaired.match(/}/g) || []).length;
