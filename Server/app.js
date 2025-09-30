@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import bodyParser from 'body-parser';
 import requirementsRouter from './api/requirements.js';
-import uiRouter from './api/ui.js';
 
 dotenv.config();
 const app = express();
@@ -22,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //API Routes
 app.use('/api/requirements', requirementsRouter);
-app.use('/api/ui', uiRouter);
+// app.use('/api/ui', uiRouter);
 
 // Test endpoint
 app.get('/api/test', (req, res) => {

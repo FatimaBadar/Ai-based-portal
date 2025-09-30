@@ -33,56 +33,66 @@ async function cleanAndParseJSON(responseText) {
     };
   } catch (error) {
     console.error("Failed to parse JSON:", error);
-    return null;
+        // Try repairing by closing braces/brackets
+    let repaired = responseText;
+    const openCurly = (repaired.match(/{/g) || []).length;
+    const closeCurly = (repaired.match(/}/g) || []).length;
+    const openSquare = (repaired.match(/\[/g) || []).length;
+    const closeSquare = (repaired.match(/]/g) || []).length;
+
+    repaired += "}".repeat(openCurly - closeCurly);
+    repaired += "]".repeat(openSquare - closeSquare);
+
+    return JSON.parse(repaired);
   }
 }
 
 export async function ExtractRequirements(description) {
   try {
-    const prompt = `Analyze this app description and extract structured requirement information.
-        Return only valid JSON with no additional text.
-        
-        Also give me another valid JSON (with no additional text, characters, words or symbols) for creating a form . 
-        Create a **form specification** that maps features to entities and roles:  
+    const prompt = `Analyze the following app description and extract structured requirements.
+        Description: "${description}"
+    
+        Output Rules:
+        1. Return ONLY one valid JSON object (no text, no markdown, no comments).
+        2. Do not include code fences or explanations.
+        3. Always close all brackets and braces properly.
+        4. If information is missing, use an empty string "" or empty array [].
+        5. The JSON object must also include a "form" that maps features to entities and roles.
+        6. The form specification must follow these rules:  
         - Each form belongs to exactly one role.  
         - Each form corresponds to one entity that the role has access to.  
-        - Actions for the form should come from features related to that entity.  
-
-        Description: "${description}"
-
-        Return only valid JSON with no additional text.
+        - The "action" field comes from features related to that entity.
         
-        Return ONLY a JSON object with this exact structure:
+        JSON Structure (must match exactly):
         {
         "appName": "extracted app name",
         "entities": [
             {
-            "name": "entity name",
-            "roles": ["role1", "role2", "roleN"],
-            "fields": [
-                {"name": "field name1", "type": "string", "required": true},
-                {"name": "field name2", "type": "number", "required": false},
-                {"name": "field nameN", "type": "boolean", "required": true}
-            ]
+                "name": "entity name",
+                "roles": ["role1", "role2", "roleN"],
+                "fields": [
+                    {"name": "field name1", "type": "string", "required": true},
+                    {"name": "field name2", "type": "number", "required": false},
+                    {"name": "field nameN", "type": "boolean", "required": true}
+                ]
             }
         ],
         "roles": ["role1", "role2", "roleN"],
         "features": ["feature1", "feature2", "featureN"],
         "form": [
             {
-            "name": "entity name",
-            "role": "Role1",
-            "fields": [
-                {"name": "field name1", "type": "string", "required": true},
-                {"name": "field name2", "type": "number", "required": false},
-                {"name": "field nameN", "type": "boolean", "required": true}
-            ],
-            "action": "action name"
+                "name": "entity name",
+                "role": "Role1",
+                "fields": [
+                    {"name": "field name1", "type": "string", "required": true},
+                    {"name": "field name2", "type": "number", "required": false},
+                    {"name": "field nameN", "type": "boolean", "required": true}
+                ],
+                "action": "action name"
             }
         ]
         }
         where N is a number >= 1
-
     `;
 
     const chatCompletion = await openaiClient.chat.completions.create({
@@ -90,7 +100,7 @@ export async function ExtractRequirements(description) {
       // model: "openai/gpt-oss-20b:fireworks-ai",
       messages: [{ role: "user", content: prompt }],
       temperature: 0.3,
-      max_tokens: 1000,
+      max_tokens: 3000,
     });
 
     const response = chatCompletion.choices[0].message.content;

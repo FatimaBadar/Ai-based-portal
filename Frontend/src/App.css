@@ -187,6 +187,7 @@ body{
   justify-content: space-between;
   padding-bottom: 5px;
   width: 100% !important;
+  text-align: start;
 }
 
 .form-fields .p-inputtext{

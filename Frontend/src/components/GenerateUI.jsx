@@ -46,57 +46,58 @@ const GenerateUI = () => {
   function getActionLabel(item) {
     //if already 2 words, same
     if (!isSingleWord(item.action)) return item.action;
+  
     //if 1 word
-    // else {
-    //   if (item.action.toLowerCase().includes(item.name.toLowerCase())) {
-    //     return (
-    //       item.action +
-    //       " " +
-    //       item.role.charAt(0).toUpperCase() +
-    //       item.role.replace(/([a-z])([A-Z])/g, "$1 $2").slice(1) +
-    //       "s"
-    //     );
-    //   }
-    //   return(
-    //   item.action +
-    //     " " +
-    //     item.name.charAt(0).toUpperCase() +
-    //     item.name.replace(/([a-z])([A-Z])/g, "$1 $2").slice(1) +
-    //     "s");
-    //   // return item.action + item.name;
+    else {
+      if (item.action.toLowerCase().includes(item.name.toLowerCase())) {
+        return (
+          item.action.charAt(0).toUpperCase() + item.action.slice(1) +
+          " " +
+          item.role.charAt(0).toUpperCase() +
+          item.role.replace(/([a-z])([A-Z])/g, "$1 $2").slice(1) +
+          "s"
+        );
+      }
+      return(
+          item.action.charAt(0).toUpperCase() + item.action.slice(1) +
+        " " +
+        item.name.charAt(0).toUpperCase() +
+        item.name.replace(/([a-z])([A-Z])/g, "$1 $2").slice(1) +
+        "s");
+      // return item.action + item.name;
+    }
+
+    // const action = item.action.trim();
+    // const name = item.name.trim();
+    // const role = item.role?.trim() || "";
+
+    // // Case: if action is a single word AND it matches or relates to entity name
+    // if (
+    //   !isSingleWord(action) &&
+    //   action.toLowerCase().includes(name.toLowerCase())
+    // ) {
+    //   // Use role instead (pluralize role)
+    //   const pluralRole = role.endsWith("s") ? role : role + "s";
+    //   console.log(`${action} ${pluralRole}`);
+    //   return `${action} ${pluralRole}`;
     // }
 
-    const action = item.action.trim();
-    const name = item.name.trim();
-    const role = item.role?.trim() || "";
+    // // Case: if action already has entity name (like "Manage Grades")
+    // if (action.toLowerCase().includes(name.toLowerCase())) {
+    //   console.log(`${action}`);
 
-    // Case: if action is a single word AND it matches or relates to entity name
-    if (
-      !isSingleWord(action) &&
-      action.toLowerCase().includes(name.toLowerCase())
-    ) {
-      // Use role instead (pluralize role)
-      const pluralRole = role.endsWith("s") ? role : role + "s";
-      console.log(`${action} ${pluralRole}`);
-      return `${action} ${pluralRole}`;
-    }
+    //   return action;
+    // }
 
-    // Case: if action already has entity name (like "Manage Grades")
-    if (action.toLowerCase().includes(name.toLowerCase())) {
-      console.log(`${action}`);
+    // // Case: single-word action, append entity plural
+    // if (isSingleWord(action)) {
+    //   const pluralName = name.endsWith("s") ? name : name + "s";
+    //   console.log(`${action} ${pluralRole}`);
+    //   return `${action} ${pluralName}`;
+    // }
 
-      return action;
-    }
-
-    // Case: single-word action, append entity plural
-    if (isSingleWord(action)) {
-      const pluralName = name.endsWith("s") ? name : name + "s";
-      console.log(`${action} ${pluralRole}`);
-      return `${action} ${pluralName}`;
-    }
-
-    // Fallback: return as is
-    return action;
+    // // Fallback: return as is
+    // return action;
   }
 
   function getFieldLabel(name) {
