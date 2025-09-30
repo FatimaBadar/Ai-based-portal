@@ -4,7 +4,7 @@ import { Badge } from "primereact/badge";
 import { Divider } from "primereact/divider";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
-import {Message} from "primereact/message"
+import { Message } from "primereact/message";
 import { useState, useEffect } from "react";
 import { analyzeRequirements } from "./services/api";
 import RequirementDisplay from "./components/RequirementDisplay";
@@ -13,27 +13,29 @@ import GenerateUI from "./components/GenerateUI";
 function App() {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
   const [uiElements, setUiElements] = useState(false);
   const [activeStep, setActiveStep] = useState(1);
 
   const [requirement, setRequirement] = useState("");
 
-
-  useEffect( () => {
+  useEffect(() => {
     const storedRequirement = JSON.parse(localStorage.getItem("requirement"));
-    setRequirement(storedRequirement)
+    setRequirement(storedRequirement);
 
-      // const storedElements = JSON.parse(localStorage.getItem("UIElements"));
-      // setUiElements(storedElements)
+    const storedActiveStep = JSON.parse(localStorage.getItem("activeStep"));
+    if (storedActiveStep !== null) {
+      setActiveStep(storedActiveStep);
+      console.log("active step (from storage):", storedActiveStep);
+    }
 
-    if(storedRequirement){
-      setActiveStep(2)
-    }
-    if(uiElements){
-      setActiveStep(3)
-    }
-  },[] )
+    // if (storedRequirement) {
+    //   setActiveStep(2);
+    // }
+    // if (uiElements) {
+    //   setActiveStep(3);
+    // }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,13 +52,16 @@ function App() {
       const response = await analyzeRequirements(description);
       setRequirement(response);
 
-      console.log("req: ", response)
+      localStorage.setItem("requirement", JSON.stringify(response));
 
-      localStorage.setItem("requirement",  JSON.stringify(response));
       setActiveStep(2);
+
+      localStorage.setItem("activeStep", JSON.stringify(2));
     } catch (error) {
       console.error("Error analyzing requirements:", error);
-      setError("There was an error analyzing the requirements. Please try again.");
+      setError(
+        "There was an error analyzing the requirements. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -68,7 +73,15 @@ function App() {
     // setUiElements(ui.UIElements);
     // localStorage.setItem("UIElements", JSON.stringify(ui.UIElements));
     setActiveStep(3);
+    localStorage.setItem("activeStep", JSON.stringify(3));
     // setLoading(false);
+  };
+
+  const resetRequirements = () => {
+    localStorage.removeItem("requirement");
+    localStorage.removeItem("activeStep");
+    setRequirement("");
+    setActiveStep(1);
   };
 
   return (
@@ -119,51 +132,57 @@ function App() {
         </div>
       </Card>
 
-      {activeStep == 1 && (
+      {/* <div className="lower-part"> */}
       <Card className="description-card">
-        <form onSubmit={handleSubmit}>
-          <div className="description-form">
-            <label htmlFor="description" className="description-label">
-              Enter your prompt for App Description here
-            </label>
-            <InputTextarea
-              id="description"
-              className="form-textarea"
-              value={description}
-              placeholder="Example: I want an app to manage student courses and grades. Teachers can add courses, students can enroll, and admins can manage reports and analytics..."
-              onChange={(e) => setDescription(e.target.value)}
-              rows={5}
-              cols={30}
-              // disabled={loading}
-            />
-            {error !="" && 
-            <Message severity="error" text={error} />
-}
-            <Button
-              type="submit"
-              label="Analyze Requirements"
-              icon="pi pi-bolt"
-              loading={loading}
-            />
-          </div>
-        </form>
+        <Button
+          className="reset-req"
+          // type="submit"
+          label="Reset Requirements"
+          icon="pi pi-undo"
+          // loading={loading}
+          onClick={resetRequirements}
+        />
 
-      </Card>
+      {activeStep == 1 && (
+        // <Card className="description-card">
+          <form onSubmit={handleSubmit}>
+            <div className="description-form">
+              <label htmlFor="description" className="description-label">
+                Enter your prompt for App Description here
+              </label>
+              <InputTextarea
+                id="description"
+                className="form-textarea"
+                value={description}
+                placeholder="Example: I want an app to manage student courses and grades. Teachers can add courses, students can enroll, and admins can manage reports and analytics..."
+                onChange={(e) => setDescription(e.target.value)}
+                rows={5}
+                cols={30}
+                // disabled={loading}
+              />
+              {error != "" && <Message severity="error" text={error} />}
+              <Button
+                type="submit"
+                label="Analyze Requirements"
+                icon="pi pi-bolt"
+                loading={loading}
+              />
+            </div>
+          </form>
+        // </Card>
       )}
 
       {requirement && activeStep == 2 && (
         <RequirementDisplay
-          // requirement={requirement}
           onUIElements={handleGenerateUI}
         />
       )}
-      
-      {uiElements && activeStep==3 && (
-        <GenerateUI 
-        // uiElements={uiElements}
-         />
-        // onUIElements={handleGenerateUI} />
+      {activeStep == 3 && (
+        <GenerateUI
+        />
       )}
+            </Card>
+
     </div>
   );
 }

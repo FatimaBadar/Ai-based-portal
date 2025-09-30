@@ -1,45 +1,9 @@
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-} */
+/* #root { */
+  /* max-width: 1280px; */
+  /* margin: 0 auto; */
+  /* padding: 2rem; */
+  /* text-align: center; */
+/* } */
 
 body{
   margin: 0;
@@ -47,29 +11,22 @@ body{
 
 .App{
   display: flex;
-  /* width: 100%; */
-  /* min-height: 100vh; */
   flex-direction: column;
 }
 
-/* heading -App title */
 .header {
-      background-image: linear-gradient(to right, #98d1ff, #c04df5); /* Example: Peach Fuzz to Illuminating */
+  background-image: linear-gradient(to right, #98d1ff, #c04df5); /* Example: Peach Fuzz to Illuminating */
   /* background: linear-gradient(135deg, #66aaea 0%, #714ba2 100%); */
   color: white;
   text-align: center;
-  top: 0;
-  /* box-shadow: none; */
-    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
-
   width: 100%;
+  padding: 5px;
 }
 
 .header h1{
   font-weight: 400;
   margin: auto;
-  font-weight: 700;
-  
+  font-weight: 700;  
   font-size: 2.5em;
   line-height: 1;
 }
@@ -91,8 +48,8 @@ body{
 
 .tab-bar{
   display: flex;
-  /* justify-content: center; */
-  margin-bottom: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   gap: 20px;
 }
 
@@ -111,15 +68,24 @@ body{
   white-space: nowrap; 
 }
 
+.reset-req{
+  width: 300px;
+  margin-top: -40px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-self: flex-end;
+}
+
+
 /* App description form */
 .description-card{
   margin: auto;
   width: 90%;
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 10px;
   padding: 50px;  
+  margin-bottom: 10px;
 }
 
 .description-form{
@@ -141,34 +107,120 @@ body{
 }
 
 /* Requirements */
-.requirement-card{
-  margin: auto;
-  width: 90%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 10px;
-  padding: 50px;  
-}
-
-.requirement-heading{
+.req-heading{
   font-weight: 600;
   text-align: center;
   font-size: 1.7em;
 }
 
-/* UI */
-.ui-card{
-  margin: auto;
-  width: 90%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 10px;
-  padding: 50px;  
+.requirements{
+  display: flex;
+  margin: 20px;
+  gap: 5%;
+  text-align: center;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
 }
 
+.req-item{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding-left: 2rem;
+  /* padding-right: 2rem; */
+}
+
+.label-data{
+  padding-right: 2rem;
+}
+
+.entity-fields{
+  margin-bottom: 10px;
+  padding: 1rem;
+  background-color: #abc8fd6b;
+  border-radius: 8px;
+
+  display: flex;
+  align-items: center;
+
+  /* margin-left: 5rem; */
+  /* margin-right: 5rem; */
+
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.field{
+  margin-left: 1rem;
+}
+
+/* UI */
 .ui-heading{
   font-weight: 600;
   text-align: center;
   font-size: 1.7em;
 }
+
+.ui-card{
+  margin-top: 15px;
+  /* background-color:#98d1ff80 ; */
+  /* background-color:#abc8fd80 ; */
+    background-color: #abc8fd6b !important;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+.form{
+  display: flex;
+  flex-direction: column;
+}
+
+.form-fields{
+  /* gap: 80px; */
+  gap: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 5px;
+  width: 100% !important;
+}
+
+.form-fields .p-inputtext{
+  background-color: white;
+  border-color:  rgba(255, 255, 255, 0.952) !important;
+}
+
+.ui-table{
+  text-align: center;
+  margin-top: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #abc8fd6b !important;
+}
+
+.ui-table,
+.p-datatable,
+.p-datatable-wrapper,
+.p-datatable-thead > tr > th,
+.p-datatable-tbody > tr > td {
+  background-color: #abc8fd6b !important;
+}
+
+.p-datatable-thead > tr > th{
+  color: black;
+  background-color: rgba(255, 255, 255, 0.952) !important;
+}
+.p-datatable-tbody > tr > td {
+  border-color:  rgba(255, 255, 255, 0.952) !important;
+}
+
+/* .p-datatable-tbody > tr:hover {
+  /* background-color: #89b4fc80 !important; 
+} */
+
 
 /* .ui-tabs{
   display: flex;

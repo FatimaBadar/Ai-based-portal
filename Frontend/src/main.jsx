@@ -8,7 +8,7 @@ import "primereact/resources/themes/md-light-deeppurple/theme.css";
 import 'primereact/resources/primereact.min.css';
 // /primereact.min.css"; //core css
 import "primeicons/primeicons.css"; //icons
-// import "primeflex/primeflex.css"; //flex
+import 'primeflex/primeflex.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
